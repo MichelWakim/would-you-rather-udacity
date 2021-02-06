@@ -5,18 +5,18 @@ export function formatDate (timestamp) {
 }
 
 export function formatQuestion (question, author, authedUser) {
-  const { id, optionOne, optionTwo, text, timestamp } = question
+  const { id, optionOne, optionTwo, timestamp } = question
   const { name, avatarURL } = author
 
   return {
     name,
     id,
     timestamp,
-    text,
     avatar: avatarURL,
-    optionOne: optionOne.votes.length,
-    optionTwo: optionOne.votes.length,
-    hasAnswered: optionOne.includes(authedUser) + optionTwo.includes(authedUser),
+    optionOneVotes: optionOne.votes.length,
+    optionOneText : optionOne.text,
+    optionTwoVotes: optionOne.votes.length,
+    optionTwoText : optionTwo.text,
+    hasAnswered: optionOne.votes.includes(authedUser) + optionTwo.votes.includes(authedUser),
     }
-  }
 }
