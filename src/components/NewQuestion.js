@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
+import { handleAddQuestion } from '../actions/questions';
 
 class NewQuestion extends Component {
   state = {
@@ -12,10 +14,12 @@ class NewQuestion extends Component {
     e.preventDefault()
 
     const { optionOne, optionTwo } = this.state
+    const { id } = this.props;
 
     // todo: Add Question to Store
-
+    this.props.handleAddQuestion(optionOne, optionTwo, id);
     console.log('New Question: ', optionOne, optionTwo)
+  
 
     this.setState(() => ({
       optionOne: '',
@@ -32,11 +36,10 @@ class NewQuestion extends Component {
 
     return (
       <div>
-        <h3 className='center'>Compose new Poll</h3>
+        <h3 className='center'>Create new Poll</h3>
         <form className='new-question' onSubmit={this.handleSubmit}>
-          <p>Create a New Poll</p>
           <p>Complete the question:</p>
-          <p>Would you rather</p>
+          <p><strong>Would you rather</strong></p>
           <textarea
             placeholder="Enter Option one ..."
             id="optionOne"
@@ -66,4 +69,9 @@ class NewQuestion extends Component {
   }
 }
 
-export default NewQuestion
+const actionCreators = { handleAddQuestion };
+
+export default connect(
+  null,
+  actionCreators
+)(NewQuestion);
